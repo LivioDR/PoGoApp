@@ -7,13 +7,13 @@ const Menu = () => {
         <Navbar bg="dark" variant="dark">
             <Container>
                 <Navbar.Brand>
-                    {/* <img
+                    <img
                     alt="Pokeball icon logo"
-                    src="../../Public/NavBarIcon.png"
+                    src="/NavBarIcon.png"
                     width="30"
                     height="30"
                     className="d-inline-block align-top"
-                    /> */}
+                    />
                     {" "}Pogo App
                 </Navbar.Brand>
             </Container>
