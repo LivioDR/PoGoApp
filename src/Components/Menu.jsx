@@ -1,7 +1,9 @@
 import React from 'react'
-import {Container,Navbar} from 'react-bootstrap'
+import {Container, Navbar} from 'react-bootstrap'
+import LangSelect from './LangSelection'
 
-const Menu = () => {
+const Menu = ({setLang}) => {
+
     return(
         <>
         <Navbar bg="dark" variant="dark">
@@ -16,6 +18,7 @@ const Menu = () => {
                     />
                     {" "}Pogo App
                 </Navbar.Brand>
+                <LangSelect setLang={setLang}/>
             </Container>
         </Navbar>
         </>

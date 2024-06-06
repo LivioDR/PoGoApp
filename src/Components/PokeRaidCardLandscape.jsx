@@ -13,7 +13,7 @@ const PokeRaidCardLandscape = (props) => {
     const [loadingFlavor,setLoadingFlavor] = useState(true)
     const [shinyAvailable, setShinyAvailable] = useState(false)
     const [name, setName] = useState(props.pokeInfo.name)
-    const [lang, setLang] = useState(props.lang)
+    const lang = props.lang
     const [candyDistance, setCandyDistance] = useState()
     const [pkmnStats,setPkmnStats] = useState({})
 
@@ -59,7 +59,7 @@ const PokeRaidCardLandscape = (props) => {
 
     return(
       <Col xs={12}>
-        <Card style={{ width: '100%', 'marginBottom': '10%', 'paddingBottom': '5%' }} className="text-center">
+        <Card style={{ width: '100%', height: '90%', 'marginBottom': '5%'}} className="text-center">
           <Row>
             <Col xs={6}>
               <Card.Body>
@@ -88,11 +88,17 @@ const PokeRaidCardLandscape = (props) => {
                       HP <ProgressBar variant="success" label={pkmnStats.hp} now={pkmnStats.hp/pkmnStats.max*100} />
                   </Col>
                 </Row>
-                <Row>
+                <Row style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-evenly',
+              alignItems: 'center',
+              width: '100%',
+            }}>
                   <Col xs={6}>
-                    <Button onClick={toggleShiny} disabled={shinyAvailable? false : true} variant={shinyOn? "danger" : "primary"}>{lang==='es'?'Variocolor':lang==='fr'?'Chromatique':'Shiny'}</Button>
+                    <Button style={{fontSize: 'small'}} onClick={toggleShiny} disabled={shinyAvailable? false : true} variant={shinyOn? "danger" : "primary"}>{lang==='es'?'Variocolor':lang==='fr'?'Chromatique':'Shiny'}</Button>
                   </Col>
-                <Col xs={4} className="text-end">
+                <Col xs={4} style={{fontSize: 'small'}} className="text-end">
                   {!loadingFlavor ? (lang === 'en' ? Math.round(candyDistance*0.62*100)/100+" Mi": candyDistance+" Km") : "Cargando..."}
                 </Col>
                 <Col xs={2} className="text-start">
@@ -100,15 +106,6 @@ const PokeRaidCardLandscape = (props) => {
                 </Col>
                 </Row>
               </Card.Body>
-                <Row>
-                  <Col xs={4} className="p text-end">
-                      <Button as={'img'} onClick={()=>{setLang("es");}} src="https://cdn3.iconfinder.com/data/icons/142-mini-country-flags-16x16px/32/flag-spain2x.png" height={"75%"}/></Col>
-                  <Col xs={4} className="p text-center">
-                      <Button as={'img'} onClick={()=>{setLang("fr");}} src="https://cdn3.iconfinder.com/data/icons/142-mini-country-flags-16x16px/32/flag-france2x.png" height={"75%"}/></Col>
-                  <Col xs={4} className="p text-start">
-                      <Button as={'img'} onClick={()=>{setLang("en");}} src="https://cdn3.iconfinder.com/data/icons/142-mini-country-flags-16x16px/32/flag-usa2x.png" height={"75%"}/>
-                  </Col>
-                </Row>
               </Col>
             </Row>
         </Card>

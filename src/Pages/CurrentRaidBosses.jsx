@@ -4,7 +4,7 @@ import PokeRaidCard from "../Components/PokeRaidCard";
 import PokeRaidCardLandscape from "../Components/PokeRaidCardLandscape"
 import { getRaidBosses } from "../Services/PogoService";
 
-const CurrentRaidBosses = () => {
+const CurrentRaidBosses = ({lang}) => {
 
     const [raidInfoObject, setRaidInfoObject] = useState([])
     const [loading, setLoading] = useState(true)
@@ -40,8 +40,8 @@ const CurrentRaidBosses = () => {
     return(
         <Container>
             <Row>
-                <Col className="h2 text-center">
-                    Jefes de incursiones actuales
+                <Col className="h2 text-center mb-1 mt-2">
+                    {lang === 'es' ? "Jefes de incursiones actuales": lang === 'fr' ? "Boss de raid actuels" : "Current raid bosses"}
                 </Col>
             </Row>
             <Row>
@@ -49,19 +49,19 @@ const CurrentRaidBosses = () => {
                     viewportSize < 1024 &&
                     !isLandscape &&
                     <Carousel>
-                        {raidInfoObject.map(tiers=>tiers.map(pokemon=><Carousel.Item><PokeRaidCard pokeInfo={pokemon[1]} lang={"es"} key={pokemon[1].id}/></Carousel.Item>))}
+                        {raidInfoObject.map(tiers=>tiers.map(pokemon=><Carousel.Item><PokeRaidCard pokeInfo={pokemon[1]} lang={lang} key={pokemon[1].id}/></Carousel.Item>))}
                     </Carousel>
                 }
                 {   
                     viewportSize < 1024 &&
                     isLandscape &&
                     <Carousel>
-                        {raidInfoObject.map(tiers=>tiers.map(pokemon=><Carousel.Item><PokeRaidCardLandscape pokeInfo={pokemon[1]} lang={"es"} key={pokemon[1].id}/></Carousel.Item>))}
+                        {raidInfoObject.map(tiers=>tiers.map(pokemon=><Carousel.Item><PokeRaidCardLandscape pokeInfo={pokemon[1]} lang={lang} key={pokemon[1].id}/></Carousel.Item>))}
                     </Carousel>
                 }
                 {
                     viewportSize >= 1024 &&
-                    raidInfoObject.map(tiers=>tiers.map(pokemon=><PokeRaidCard pokeInfo={pokemon[1]} lang={"es"} key={pokemon[1].id}/>))
+                    raidInfoObject.map(tiers=>tiers.map(pokemon=><PokeRaidCard pokeInfo={pokemon[1]} lang={lang} key={pokemon[1].id}/>))
                 }
             </Row>
         </Container>

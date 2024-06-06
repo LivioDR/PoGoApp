@@ -13,7 +13,7 @@ const PokeRaidCard = (props) => {
     const [loadingFlavor,setLoadingFlavor] = useState(true)
     const [shinyAvailable, setShinyAvailable] = useState(false)
     const [name, setName] = useState(props.pokeInfo.name)
-    const [lang, setLang] = useState(props.lang)
+    const lang = props.lang
     const [candyDistance, setCandyDistance] = useState()
     const [pkmnStats,setPkmnStats] = useState({})
 
@@ -59,7 +59,7 @@ const PokeRaidCard = (props) => {
 
     return(
       <Col xs={12} sm={12} md={6} lg={4} xl={3}>
-        <Card style={{ width: '100%', 'marginBottom': '10%', 'paddingBottom': '5%' }} className="text-center">
+        <Card style={{ width: '100%', 'marginTop': '5%', 'marginBottom': '5%', 'paddingBottom': '5%', 'height': '80vh' }} className="text-center">
           <Card.Body>
             <Row>
               <Col xs={8} className="text-start">
@@ -70,23 +70,33 @@ const PokeRaidCard = (props) => {
               </Col>
             </Row>
             <Card.Subtitle>{type.map(type=><TypeBadge key={id+type} type={type}/>)}</Card.Subtitle>
-            <img src={imgLink} alt={name}></img>
-            <Card.Text className="text-start text-justify">
+            <img src={imgLink} alt={name} style={{
+              width: '70%',
+              height: '30%',
+              objectFit: 'contain',
+            }}></img>
+            <Card.Text className="text-start text-justify" style={{height: '20%'}}>
               {loadingFlavor ? "Cargando..." : flavorText}
             </Card.Text>
             <Row style={{'padding':'10%'}}>
               <Card.Subtitle>{lang==='en'?'Stats':lang==='es'?'Estadísticas':'Statistiques'}</Card.Subtitle>
-              <Col xs={12}>
+              <Col xs={12} style={{height: '40%'}}>
                   ATK<ProgressBar variant="danger" label={pkmnStats.atk} now={pkmnStats.atk/pkmnStats.max*100} />
                   DEF<ProgressBar variant="info" label={pkmnStats.def} now={pkmnStats.def/pkmnStats.max*100} />
                   HP <ProgressBar variant="success" label={pkmnStats.hp} now={pkmnStats.hp/pkmnStats.max*100} />
               </Col>
             </Row>
-            <Row>
+            <Row style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-evenly',
+              alignItems: 'center',
+              width: '100%',
+            }}>
               <Col xs={6}>
-                <Button onClick={toggleShiny} disabled={shinyAvailable? false : true} variant={shinyOn? "danger" : "primary"}>{lang==='es'?'Variocolor':lang==='fr'?'Chromatique':'Shiny'}</Button>
+                <Button style={{fontSize: 'small'}} onClick={toggleShiny} disabled={shinyAvailable? false : true} variant={shinyOn? "danger" : "primary"}>{lang==='es'?'Variocolor':lang==='fr'?'Chromatique':'Shiny'}</Button>
               </Col>
-            <Col xs={4} className="text-end">
+            <Col xs={4} style={{fontSize: 'small'}} className="text-end">
               {!loadingFlavor ? (lang === 'en' ? Math.round(candyDistance*0.62*100)/100+" Mi": candyDistance+" Km") : "Cargando..."}
             </Col>
             <Col xs={2} className="text-start">
@@ -94,15 +104,6 @@ const PokeRaidCard = (props) => {
             </Col>
             </Row>
           </Card.Body>
-            <Row>
-              <Col xs={4} className="p text-end">
-                  <Button as={'img'} onClick={()=>{setLang("es");}} src="https://cdn3.iconfinder.com/data/icons/142-mini-country-flags-16x16px/32/flag-spain2x.png" height={"75%"}/></Col>
-              <Col xs={4} className="p text-center">
-                  <Button as={'img'} onClick={()=>{setLang("fr");}} src="https://cdn3.iconfinder.com/data/icons/142-mini-country-flags-16x16px/32/flag-france2x.png" height={"75%"}/></Col>
-              <Col xs={4} className="p text-start">
-                  <Button as={'img'} onClick={()=>{setLang("en");}} src="https://cdn3.iconfinder.com/data/icons/142-mini-country-flags-16x16px/32/flag-usa2x.png" height={"75%"}/>
-              </Col>
-            </Row>
         </Card>
       </Col>
     )
